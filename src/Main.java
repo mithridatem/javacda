@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args){
-        Bdd.getConnexion();
+
         System.out.println("Veuillez choisir les actions à réaliser");
         System.out.println("Saisir add -> pour ajouter un compte");
         System.out.println("Saisir update -> pour modifier un compte");

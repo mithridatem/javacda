@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserController {
@@ -87,14 +88,14 @@ public class UserController {
     }
 
     /* 3 Affichage d'un utilisateur*/
-    public static void showUser(){
+    public static void showUser() {
         System.out.println("Veuillez saisir l'email");
         String email = scanner.nextLine();
         //Tester si email est non vide
-        if(!email.isEmpty()){
+        if(!email.isEmpty()) {
             User user = new User().setEmail(email);
             //Tester si le compte existe
-            if(user.findUserExist()){
+            if(user.findUserExist()) {
                 //Récupérer et afficher le compte
                 System.out.println(user.findUserEmail());
             }
@@ -112,12 +113,49 @@ public class UserController {
     }
 
     /* 4 Supprimer un utilisateur*/
-    public static void deleteUser(){}
+    public static void deleteUser(){
+        System.out.println("Veuillez saisir l'email");
+        String email = scanner.nextLine();
+        //Tester si le mail est non vide
+        if(!email.isEmpty()) {
+            User user = new User().setEmail(email);
+            //Tester si le compte existe
+            if(user.findUserExist()) {
+                user.deleteUser();
+            }
+            //Sinon afficher un message le compte n'existe pas ou plus
+            else {
+                System.out.println("Le compte n'existe pas ou plus en BDD");
+                return;
+            }
+        }
+        //Sinon le mail est vide
+        else {
+            System.out.println("L'email est vide");
+            return;
+        }
+    }
 
     /* 5 Afficher la liste des utilisateurs*/
-    public static void showAllUser(){}
+    public static void showAllUser(){
+        System.out.println("Liste des comptes utilisateurs");
+        ArrayList<User> users = User.getAllUsers();
+        //Tester si la liste est vide
+        if(users.size() == 0) {
+            System.out.println("Il n'y à pas de compte en BDD");
+            return;
+        }
+        //La liste est non vide
+        else {
+            //Parcourir l'ArrayList
+            for(User user : User.getAllUsers()) {
+                //Afficher le compte avec non, prenom et email
+                System.out.println(user);
+            }
+        }
+    }
 
-    //récupérer le scanner
+    //Récupérer le scanner
     public static Scanner getScanner() {
         return scanner;
     }
