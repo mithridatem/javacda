@@ -1,5 +1,6 @@
 # javacda
-1 Créer à la racine de src un fichier **Env.java** (**il va servir à configurer la BDD**)
+1 Créer à la racine de src un fichier **Env.java** (*il va servir à configurer la BDD*)
+
 2 Editer le fichier comme ci-dessous (en remplaçant avec vos informations:
 ```java
 public final class Env {
