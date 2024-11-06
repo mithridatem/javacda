@@ -10,7 +10,7 @@ public class User{
     private String email;
     private String password;
     //Connexion à la BDD
-    private static Connection connexion = Requete.getConnexion();
+    private static Connection connexion = Bdd.getConnexion();
     //Constructeurs
     public User(){}
     public User(String nom, String prenom, String email, String password) {

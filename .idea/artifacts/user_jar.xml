@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact name="user:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/user_jar</output-path>
+    <root id="root">
+      <element id="archive" name="untitled1.jar">
+        <element id="module-output" name="untitled1" />
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/lib/mysql-connector-j-8.4.0.jar" />
+      <element id="library" level="module" name="springframework.security.spring.crypto" module-name="untitled1" />
+    </root>
+  </artifact>
+</component>

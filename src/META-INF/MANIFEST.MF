@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: Main
+Class-Path: mysql-connector-j-8.4.0.jar spring-security-crypto-6.3.4.jar
+
