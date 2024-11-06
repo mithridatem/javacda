@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class UserController {
+    //Attributs
     private static Scanner scanner = new Scanner(System.in);
     //Méthodes static
     /* 1 ajouter un utilisateur*/
@@ -44,7 +45,46 @@ public class UserController {
     }
 
     /* 2 Modifier un utilisateur*/
-    public static void updateUser(){}
+    public static void updateUser(){
+        System.out.println("Veuillez saisir l'email du compte à éditer");
+        String email = scanner.nextLine();
+        //Tester si email est non vide
+        if(!email.isEmpty()){
+            //Vérifier si le compte existe
+            User user = new User().setEmail(email);
+            //Tester si le compte existe
+            if(user.findUserExist()){
+                //Demander les informations à modifier
+                System.out.println("Veuillez saisir le nouveau nom");
+                String nom  = scanner.nextLine();
+                System.out.println("Veuillez saisir le nouveau prénom");
+                String prenom = scanner.nextLine();
+                //Tester si les 2 valeurs sont non vide
+                if(!nom.isEmpty() && !prenom.isEmpty()){
+                    //Setter le nom et le prénom
+                    user.setNom(nom);
+                    user.setPrenom(prenom);
+                    //Mettre à jour le compte
+                    user.updateUser();
+                }
+                else{
+                    //Les valeurs non ou prénom sont vides
+                    System.out.println("le nom ou le prénom est vide");
+                    return;
+                }
+            }
+            //Sinon le compte n'existe pas
+            else{
+                System.out.println("Le compte n'existe pas");
+                return;
+            }
+        }
+        //Sinon on Affiche un message l'email est vide
+        else {
+           System.out.println("L'email est vide");
+           return;
+        }
+    }
 
     /* 3 Affichage d'un utilisateur*/
     public static void showUser(){}

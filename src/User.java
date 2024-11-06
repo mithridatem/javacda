@@ -1,6 +1,7 @@
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class User{
     //Attributs
@@ -241,5 +242,36 @@ public class User{
         }
         System.out.println("Le compte n'a pas été supprimé en BDD");
         return this;
+    }
+
+    public static ArrayList<User> getAllUsers(){
+        //instance d'une ArrayList
+        ArrayList<User> users = new ArrayList<>();
+        try{
+            //Connection à la BDD...
+            Statement stmt = connexion.createStatement();
+            //Requête SQL
+            String sql = "SELECT id, nom, prenom, email FROM users";
+            //Préparation de la requête
+            PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            //Parcourir le resultat de la requête
+            while (rs.next()){
+                //Tester si la requête
+                if(rs.getString(1) != null){
+                    //Créer un utilisateur
+                    User user = new User(rs.getString("nom"), rs.getString("prenom"),
+                        rs.getString("email"), "");
+                    //Setter id
+                    user.setId(Integer.parseInt(rs.getString("id")));
+                    //Ajouter utilisateur à la liste
+                    users.add(user);
+                }
+            }
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return users;
     }
 }
