@@ -87,7 +87,29 @@ public class UserController {
     }
 
     /* 3 Affichage d'un utilisateur*/
-    public static void showUser(){}
+    public static void showUser(){
+        System.out.println("Veuillez saisir l'email");
+        String email = scanner.nextLine();
+        //Tester si email est non vide
+        if(!email.isEmpty()){
+            User user = new User().setEmail(email);
+            //Tester si le compte existe
+            if(user.findUserExist()){
+                //Récupérer et afficher le compte
+                System.out.println(user.findUserEmail());
+            }
+            //Sinon le compte n'existe pas
+            else {
+                System.out.println("Le compte n'existe pas en BDD");
+                return;
+            }
+        }
+        //Sinon l'email n'est pas renseigné
+        else {
+            System.out.println("L'email est vide");
+            return;
+        }
+    }
 
     /* 4 Supprimer un utilisateur*/
     public static void deleteUser(){}
