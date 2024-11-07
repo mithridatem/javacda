@@ -1,23 +1,18 @@
 import java.util.ArrayList;
 
 public abstract class AbstractModel {
-    //Méthode
-    public Object add(){
+    //Méthodes Abstraites
+    public abstract Object add();
+
+    public abstract Object update();
+
+    public abstract Object delete();
+
+    public abstract Object find();
+
+    public abstract Object findBy(String param);
+
+    public static ArrayList<Object> findAll() {
         return null;
-    }
-    public Object update(){
-        return null;
-    }
-    public Object delete(){
-        return null;
-    }
-    public Object find(){
-        return null;
-    }
-    public Object findBy(String param){
-        return null;
-    }
-    public static  ArrayList<Object> findAll(){
-        return new ArrayList<>();
     }
 }
