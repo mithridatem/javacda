@@ -7,7 +7,7 @@ public class Bdd {
 
     static {
         try {
-            connexion = DriverManager.getConnection(Env.DB_URL+Env.DB_NAME+Env.DB_SERVER, Env.DB_USERNAME, Env.DB_PASSWORD);
+            connexion = DriverManager.getConnection(Env.DB_URL + Env.DB_NAME + Env.DB_SERVER, Env.DB_USERNAME, Env.DB_PASSWORD);
             System.out.println("Connexion Ok");
         } catch (SQLException e) {
             System.out.println("Erreur : " + e.getMessage());

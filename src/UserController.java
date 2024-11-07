@@ -6,7 +6,7 @@ public class UserController {
     private static Scanner scanner = new Scanner(System.in);
     //Méthodes static
     /* 1 ajouter un utilisateur*/
-    public static void addUser(){
+    public static void addUser() {
         //1 afficher un message (pour demander d'ajouter un compte)
         System.out.println("Ajouter un compte : ");
         //2 demander de saisir le nom
@@ -35,7 +35,7 @@ public class UserController {
                 //hasher le mot de passe
                 newUser.hashPassword();
                 //9 Ajouter en BDD
-                newUser.addUser();
+                newUser.add();
                 //10 afficher un message pour indiquer que le compte à été ajouté
                 System.out.println("Le compte a été ajouté en BDD");
             }
@@ -66,7 +66,7 @@ public class UserController {
                     user.setNom(nom);
                     user.setPrenom(prenom);
                     //Mettre à jour le compte
-                    user.updateUser();
+                    user.update();
                 }
                 else{
                     //Les valeurs non ou prénom sont vides
@@ -121,7 +121,7 @@ public class UserController {
             User user = new User().setEmail(email);
             //Tester si le compte existe
             if(user.findUserExist()) {
-                user.deleteUser();
+                user.delete();
             }
             //Sinon afficher un message le compte n'existe pas ou plus
             else {
@@ -139,7 +139,7 @@ public class UserController {
     /* 5 Afficher la liste des utilisateurs*/
     public static void showAllUser(){
         System.out.println("Liste des comptes utilisateurs");
-        ArrayList<User> users = User.getAllUsers();
+        ArrayList<Object> users = User.findAll();
         //Tester si la liste est vide
         if(users.size() == 0) {
             System.out.println("Il n'y à pas de compte en BDD");
@@ -148,7 +148,7 @@ public class UserController {
         //La liste est non vide
         else {
             //Parcourir l'ArrayList
-            for(User user : User.getAllUsers()) {
+            for(Object user : User.findAll()) {
                 //Afficher le compte avec non, prenom et email
                 System.out.println(user);
             }
