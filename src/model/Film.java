@@ -2,6 +2,7 @@ package model;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Film extends AbstractModel {
     //Attributs
@@ -54,7 +55,7 @@ public class Film extends AbstractModel {
 
     //Méthodes
     public String toString(){
-        return "model.Film : " + this.titre + ", date : " + this.dateSortie + ", description : " + this.description;
+        return "model.Film : " + this.titre + ", date : " + this.dateSortie.toString() + ", description : " + this.description;
     }
 
     @Override
@@ -90,23 +91,131 @@ public class Film extends AbstractModel {
     }
 
     @Override
-    public Object update() {
-        return null;
+    public Film update() {
+        try{
+            //connexion à la BDD
+            Statement stmt = connexion.createStatement();
+            String sql = "UPDATE film SET description = ? , date_sortie = ?  WHERE titre = ?";
+            PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+            //Bind des paramètres
+            preparedStatement.setString(1, this.description);
+            preparedStatement.setString(2, this.dateSortie.toString());
+            preparedStatement.setString(3, this.titre);
+            int addedRows = preparedStatement.executeUpdate();
+            if(addedRows > 0){
+                System.out.println("Le Film a été mis à jour en BDD");
+                return this;
+            }
+            //fermeture de la connexion BDD
+            stmt.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Le Film n'a pas été mis à jour");
+        return this;
     }
 
     @Override
-    public Object delete() {
-        return null;
+    public Film delete() {
+        Film delete = new Film();
+        try{
+            //connexion à la BDD
+            Statement stmt = connexion.createStatement();
+            //Requête SQl
+            String sql = "DELETE FROM film WHERE titre = ?";
+            PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+            //Bind des paramètres
+            preparedStatement.setString(1, this.titre);
+            //récupération du nombre de lignes de sortie de la requête
+            int addedRows = preparedStatement.executeUpdate();
+            //test si la requête a fonctionné
+            if(addedRows > 0){
+                System.out.println("Le Film a été supprimé en BDD");
+                return delete;
+            }
+            //fermeture de la connexion BDD
+            stmt.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Le Film n'a pas été supprimé en BDD");
+        return this;
     }
 
     @Override
     public Film find() {
-        return null;
+        //requête SQL
+        try{
+            Film getFilm;
+            //Connection à la BDD...
+            Statement stmt = connexion.createStatement();
+            //Requête SQL
+            String sql = "SELECT id, titre, date_sortie, description FROM film WHERE titre = ?";
+            //Préparation de la requête
+            PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+            //Bind le paramètre email
+            preparedStatement.setString(1, this.titre);
+            ResultSet rs = preparedStatement.executeQuery();
+            //parcourir le resultat de la requête
+            while (rs.next()){
+                //Tester si la requête
+                if(rs.getString(1) != null){
+                    getFilm = new Film(rs.getString("titre"),LocalDate.parse(rs.getString("date_sortie")),
+                           rs.getString("description"));
+                    getFilm.id = Integer.parseInt(rs.getString("id"));
+                    System.out.println("Le Film a été récupéré");
+                    return getFilm;
+                }
+            }
+            //fermeture de la connexion BDD
+            stmt.close();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        //le compte n'a pas été trouvé en BDD
+        System.out.println("Le Film n'a pas été trouvé en BDD");
+        return this;
     }
 
     @Override
     public Object findBy(String param) {
         return null;
+    }
+
+    public static ArrayList<Object> findAll(){
+        //instance d'une ArrayList
+        ArrayList<Object> films = new ArrayList<>();
+        try{
+            //Connection à la BDD...
+            Statement stmt = connexion.createStatement();
+            //Requête SQL
+            String sql = "SELECT id, titre, date_sortie, description FROM film";
+            //Préparation de la requête
+            PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            //Parcourir le resultat de la requête
+            while (rs.next()){
+                //Tester si la requête
+                if(rs.getString(1) != null){
+                    //Tester si la requête
+                    if(rs.getString(1) != null){
+                        Film getFilm = new Film(rs.getString("titre"),LocalDate.parse(rs.getString("date_sortie")),
+                                rs.getString("description"));
+                        getFilm.id = Integer.parseInt(rs.getString("id"));
+                        System.out.println("Le Film a été récupéré");
+                        //Ajouter utilisateur à la liste
+                        films.add(getFilm);
+                    }
+                }
+            }
+            //fermeture de la connexion BDD
+            stmt.close();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return films;
     }
 
     //Méthode qui vérifie si le film existe en BDD
