@@ -1,3 +1,7 @@
+package controller;
+
+import model.User;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,7 +32,7 @@ public class UserController {
         }
         //les champs sont tous remplis
         else{
-            //7 si ok créer un objet User
+            //7 si ok créer un objet model.User
             User newUser = new User(nom, prenom, email, password);
             //8 vérifier si le compte n'existe pas (findUserExist)
             if(!newUser.findUserExist()){

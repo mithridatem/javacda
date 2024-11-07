@@ -1,5 +1,6 @@
-import org.springframework.security.crypto.bcrypt.BCrypt;
+package model;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class User extends AbstractModel{
 
     //Constructeurs
     public User(){}
+
     public User(String nom, String prenom, String email, String password) {
         this.nom = nom;
         this.prenom = prenom;
@@ -69,14 +71,14 @@ public class User extends AbstractModel{
     }
 
     //Méthodes
-    //Redefinition de méthode toString
+    //Redefinition de la méthode toString
     public String toString(){
         return "Compte : " + this.nom + " " + this.prenom + " " + this.email;
     }
 
     //Méthode pour ajouter un compte utilisateur en BDD
     public User add() {
-        //instancier un Objet User null
+        //instancier un Objet model.User null
         User userAdd = null;
         try{
             //Connection à la BDD...
@@ -94,7 +96,7 @@ public class User extends AbstractModel{
             int addedRows = preparedStatement.executeUpdate();
             //test si l'enregistrement est ok
             if (addedRows > 0) {
-                //Création d'un Objet User
+                //Création d'un Objet model.User
                 userAdd = this;
             }
             //fermeture de la connexion BDD
@@ -103,7 +105,7 @@ public class User extends AbstractModel{
         }catch(Exception e){
             e.printStackTrace();
         }
-        //Retourne un Objet User
+        //Retourne un Objet model.User
         return userAdd;
     }
 
@@ -302,5 +304,4 @@ public class User extends AbstractModel{
         System.out.println("Le mot de passe n'a pas été mis à jour");
         return this;
     }
-
 }
