@@ -31,18 +31,15 @@ public class FilmController {
             System.out.println("Veuillez saisir les informations");
             return;
         }
-        //les champs sont tous remplis
-        else{
-            //7 si ok créer un objet model.Film
-            Film newFilm = new Film(titre,LocalDate.of(year, month, day), desc);
-            //8 vérifier si le model.Film n'existe pas (findFilmExist)
-            if(!newFilm.findFilmExist()){
-                //9 Ajouter en BDD
-                newFilm.add();
-            }
-            else {
-                System.out.println("Le model.Film existe déja en BDD");
-            }
+        //7 si ok créer un objet model.Film
+        Film newFilm = new Film(titre,LocalDate.of(year, month, day), desc);
+        //8 vérifier si le model.Film n'existe pas (findFilmExist)
+        if(!newFilm.findFilmExist()){
+            //9 Ajouter en BDD
+            newFilm.add();
+        }
+        else {
+            System.out.println("Le model.Film existe déja en BDD");
         }
     }
 
