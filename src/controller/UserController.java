@@ -87,7 +87,6 @@ public class UserController {
         //Sinon on Affiche un message l'email est vide
         else {
            System.out.println("L'email est vide");
-           return;
         }
     }
 
@@ -106,13 +105,11 @@ public class UserController {
             //Sinon le compte n'existe pas
             else {
                 System.out.println("Le compte n'existe pas en BDD");
-                return;
             }
         }
         //Sinon l'email n'est pas renseigné
         else {
             System.out.println("L'email est vide");
-            return;
         }
     }
 

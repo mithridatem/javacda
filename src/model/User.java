@@ -1,6 +1,8 @@
 package model;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import util.Bdd;
+
 import java.sql.*;
 import java.util.ArrayList;
 

@@ -1,5 +1,7 @@
 package model;
 
+import util.Bdd;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
